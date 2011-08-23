@@ -14,3 +14,7 @@ def parse(content):
     """
     return json.loads(content)
 
+def json_encode(obj):
+    """Encode the given object into JSON."""
+    return json.dumps(obj)
+
