@@ -1,5 +1,5 @@
 from codereview.networking import gh_request
-from codereview.parsing import parse
+from codereview.parsing import parse, json_encode
 import codereview.printing as printers
 
 def list(state='open'):
@@ -13,13 +13,33 @@ def list(state='open'):
 def show(ID):
     """Shows a single code review by its number.
 
-    ID: Identifier of the review to be shown 
+    ID: identifier of the review to be shown 
     """
     review = parse(gh_request('GET', '/repos/:user/:repo/pulls/:id', uri_vars={'id': ID}))
     printers.print_review(review)
 
+def create(title, head, base='master', message=''):
+    """Create a new code review.
+
+    title: short title of the review
+    head: reference to changes being merged in
+    base: destination of where merge will be applied
+    message: long description of review
+    """
+    review_info = {
+        'title': title,
+        'body': message,
+        'head': head,
+        'base': base,
+    }
+
+    data = json_encode(review_info)
+    review = parse(gh_request('POST', '/repos/:user/:repo/pulls', body=data))
+    printers.print_review_created(review)
+
 commands = {
     'list': list,
     'show': show,
+    'create': create,
 }
 

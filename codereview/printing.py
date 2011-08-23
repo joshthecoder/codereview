@@ -37,3 +37,7 @@ def print_review(review):
         web_url=review['html_url'],
         body=review['body'])
 
+def print_review_created(review):
+    """Prints a confirmation a review was created successfully."""
+    print 'Review Created'
+
