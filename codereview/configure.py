@@ -1,5 +1,6 @@
 configuration = {
-    "user": "appcelerator",
-    "repo": "titanium_desktop",
+    "user": "joshthecoder",
+    "repo": "apitest",
+    "gh_credentials": ('username', 'pass'),
 }
 
