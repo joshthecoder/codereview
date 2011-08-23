@@ -12,5 +12,5 @@ setup(name="github_codereview",
       packages=['codereview'],
       scripts=['bin/codereview'],
       keywords= "code review github pull requests",
-      install_requires=['requests'],
+      install_requires=['requests', 'prettytable'],
       zip_safe = True)
