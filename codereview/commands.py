@@ -10,7 +10,16 @@ def list(state='open'):
     reviews = parse(gh_request('GET', '/repos/:user/:repo/pulls'))
     printers.print_review_list(reviews)
 
+def show(ID):
+    """Shows a single code review by its number.
+
+    ID: Identifier of the review to be shown 
+    """
+    review = parse(gh_request('GET', '/repos/:user/:repo/pulls/:id', uri_vars={'id': ID}))
+    printers.print_review(review)
+
 commands = {
-    'list': list
+    'list': list,
+    'show': show,
 }
 
