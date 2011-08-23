@@ -9,12 +9,12 @@ from codereview.fatal import fatal
 gh = { 'scheme': 'https', 'host': 'api.github.com' }
 
 # Requests session
-gh_session = requests.session()
+gh_session = requests.session(auth=configuration.get('gh_credentials'))
 
 # Modified Template that uses : instead of $ for delimiting variables.
 class MTemplate(Template): delimiter=':'
 
-def gh_request(method, uri, uri_vars={}, query_vars=None):
+def gh_request(method, uri, uri_vars={}, query_vars=None, body=None):
     """Send a request to Github.
 
     method: HTTP method (GET, POST, etc)
@@ -32,7 +32,7 @@ def gh_request(method, uri, uri_vars={}, query_vars=None):
 
     # Send request to Github servers.
     url = urlunsplit((gh['scheme'], gh['host'], uri, '', ''))
-    response = requests.request(method, url, query_vars)
+    response = gh_session.request(method, url, query_vars, data=body)
     if response.ok is False:
         fatal('Github API request failed: %s' % response.error)
 
