@@ -37,9 +37,3 @@ def create(title, head, base='master', message=''):
     review = parse(gh_request('POST', '/repos/:user/:repo/pulls', body=data))
     printers.print_review_created(review)
 
-commands = {
-    'list': list,
-    'show': show,
-    'create': create,
-}
-
