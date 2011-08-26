@@ -29,6 +29,15 @@ def parse_arguments():
     show_parser.add_argument('id', type=int)
     show_parser.set_defaults(subcommand=lambda args: commands.show(ID=args.id))
 
+    # create <head> <base> --title=<title> --message-<message>
+    create_parser = subparsers.add_parser('create', help='create help')
+    create_parser.add_argument('head')
+    create_parser.add_argument('base')
+    create_parser.add_argument('--title', required=True)
+    create_parser.add_argument('--message')
+    create_parser.set_defaults(subcommand=lambda args:
+        commands.create(title=args.title, head=args.head, base=args.base, message=args.message))
+
     return parser.parse_args()
 
 def main():
