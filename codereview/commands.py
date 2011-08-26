@@ -37,3 +37,17 @@ def create(title, head, base='master', message=''):
     review = parse(gh_request('POST', '/repos/:user/:repo/pulls', body=data))
     printers.print_review_created(review)
 
+def update(ID, **updates):
+    """Update a code review.
+
+    You may update one or more of these properties:
+      title, body, or state
+    """
+    # Filter out any None values.
+    review_updates = {k:v for k,v in updates.items() if v}
+
+    if len(review_updates) > 0:
+        data = json_encode(review_updates)
+        gh_request('POST', '/repos/:user/:repo/pulls/:id', uri_vars={'id': ID}, body=data)
+        printers.print_review_updated()
+

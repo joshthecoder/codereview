@@ -38,6 +38,15 @@ def parse_arguments():
     create_parser.set_defaults(subcommand=lambda args:
         commands.create(title=args.title, head=args.head, base=args.base, message=args.message))
 
+    # update <id> --title=<title> --message=<message> --state=<open|closed>
+    update_parser = subparsers.add_parser('update', help='update help')
+    update_parser.add_argument('id', type=int)
+    update_parser.add_argument('--title')
+    update_parser.add_argument('--message')
+    update_parser.add_argument('--state', choices=('open', 'closed'))
+    update_parser.set_defaults(subcommand=lambda args:
+        commands.update(args.id, title=args.title, body=args.message, state=args.state))
+
     return parser.parse_args()
 
 def main():

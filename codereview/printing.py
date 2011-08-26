@@ -41,3 +41,6 @@ def print_review_created(review):
     """Prints a confirmation a review was created successfully."""
     print 'Review Created'
 
+def print_review_updated():
+    print 'Review Updated'
+
